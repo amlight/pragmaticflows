@@ -809,7 +809,13 @@ class OfTester(app_manager.RyuApp):
         # check the SW which sended PacketIn and output packet.
         pkt_in_src_model = (self.tester_sw
                             if KEY_EGRESS in pkt else self.target_sw)
-        model_pkt = (pkt[KEY_EGRESS] if KEY_EGRESS in pkt else pkt[KEY_PKT_IN])
+        if KEY_EGRESS in pkt:
+            model_pkt = pkt[KEY_EGRESS]
+        else:
+            if KEY_PKT_IN in pkt:
+                model_pkt = pkt[KEY_PKT_IN]
+            elif KEY_FLOW_MISS in pkt and KEY_INGRESS in pkt:
+                model_pkt[KEY_INGRESS]
 
         if hasattr(msg.datapath.ofproto, "OFPR_NO_MATCH"):
             invalid_packet_in_reason = [msg.datapath.ofproto.OFPR_NO_MATCH]
