@@ -324,6 +324,7 @@ class Formatter(object):
         """Structure/prettify log message
 
         :msg: string message
+        :pre_msg: string message to be printed in a previous line
         :indent: pprint indent
         :returns: pformatted message
 
@@ -334,9 +335,8 @@ class Formatter(object):
     def fmt_exc(cls, fmt_dict, pre_msg='Dict: \n', keys=None):
         """Format Exclude
 
-        :flow_mod: TODO
-        :exclude_keys: TODO
-        :returns: TODO
+        :fmt_dict: dictionary to be printed
+        :exclude_keys: keys to be excluded
 
         """
         if not keys:
@@ -815,7 +815,7 @@ class OfTester(app_manager.RyuApp):
             if KEY_PKT_IN in pkt:
                 model_pkt = pkt[KEY_PKT_IN]
             elif KEY_FLOW_MISS in pkt and KEY_INGRESS in pkt:
-                model_pkt[KEY_INGRESS]
+                model_pkt = pkt[KEY_INGRESS]
 
         if hasattr(msg.datapath.ofproto, "OFPR_NO_MATCH"):
             invalid_packet_in_reason = [msg.datapath.ofproto.OFPR_NO_MATCH]
