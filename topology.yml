@@ -1,0 +1,13 @@
+---
+switch_target:
+  dpid: "0000000000000001"
+  of_version: "openflow13"
+  recv_port: 1
+  send_port_1: 2
+  send_port_2: 3
+switch_tester:
+  dpid: "0000000000000002"
+  of_version: "openflow13"
+  send_port: 1
+  recv_port_1: 2
+  recv_port_2: 3
