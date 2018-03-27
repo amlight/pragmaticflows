@@ -614,6 +614,10 @@ class OfTester(app_manager.RyuApp):
                 if KEY_EGRESS in pkt or KEY_PKT_IN in pkt or KEY_FLOW_MISS in pkt:
                     if result == TIMEOUT:
                         if KEY_FLOW_MISS not in pkt:
+                            self.logger.info(
+                                Formatter.fmt(
+                                    stats_res,
+                                    pre_msg='PortStats counters: \n'))
                             self._test(STATE_NO_PKTIN_REASON, test_type,
                                        target_pkt_count, tester_pkt_count)
                         else:
