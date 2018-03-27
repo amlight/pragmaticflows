@@ -483,6 +483,7 @@ class OfTester(app_manager.RyuApp):
                     vers[OfTester.target_ver]
             else:
                 self.target_sw.dp = dp
+                self.target_sw.send_ofpdesc()
                 msg = 'Join target SW.'
         elif dp.id == self.tester_dpid:
             if dp.ofproto.OFP_VERSION != OfTester.tester_ver:
@@ -490,6 +491,7 @@ class OfTester(app_manager.RyuApp):
                     vers[OfTester.tester_ver]
             else:
                 self.tester_sw.dp = dp
+                self.tester_sw.send_ofpdesc()
                 msg = 'Join tester SW.'
         else:
             msg = 'Connect unknown SW.'
@@ -1208,6 +1210,14 @@ class OfTester(app_manager.RyuApp):
                 self.waiter.set()
                 hub.sleep(0)
 
+    @set_ev_cls(ofp_event.EventOFPDescStatsReply)
+    def ofpdesc_reply_handler(self, ev):
+        msg = ev.msg.body
+        d = msg.to_jsondict()
+        d['dpid'] = dpid_lib.dpid_to_str(ev.msg.datapath.id)
+        self.logger.info(Formatter.fmt(msg=d, pre_msg='Firmware: \n'))
+        hub.sleep(0)
+
 
 class OpenFlowSw(object):
     def __init__(self, dp, logger, tester_send_port=None):
@@ -1329,6 +1339,12 @@ class OpenFlowSw(object):
         """ Get table stats. """
         parser = self.dp.ofproto_parser
         req = parser.OFPTableStatsRequest(self.dp, 0)
+        return self.send_msg(req)
+
+    def send_ofpdesc(self):
+        """Send OFPDesc"""
+        parser = self.dp.ofproto_parser
+        req = parser.OFPDescStatsRequest(self.dp, 0)
         return self.send_msg(req)
 
     def send_packet_out(self, data):
