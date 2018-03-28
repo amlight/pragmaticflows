@@ -609,7 +609,8 @@ class OfTester(app_manager.RyuApp):
                 elif KEY_PACKETS in pkt:
                     self._continuous_packet_send(pkt)
 
-                if KEY_EGRESS in pkt or KEY_PKT_IN in pkt or KEY_FLOW_MISS in pkt:
+                if KEY_EGRESS in pkt or KEY_PKT_IN in pkt \
+                        or KEY_FLOW_MISS in pkt:
                     if result == TIMEOUT:
                         if KEY_FLOW_MISS not in pkt:
                             self.logger.info(
