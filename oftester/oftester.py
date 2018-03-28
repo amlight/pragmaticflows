@@ -493,9 +493,7 @@ class OfTester(app_manager.RyuApp):
                 self.tester_sw.dp = dp
                 self.tester_sw.send_ofpdesc()
                 msg = 'Join tester SW.'
-        else:
-            msg = 'Connect unknown SW.'
-        if dp.id:
+        if dp.id == self.target_dpid or dp.id == self.tester_dpid:
             self.logger.info('dpid=%s : %s', dpid_lib.dpid_to_str(dp.id), msg)
 
         if not (isinstance(self.target_sw.dp, DummyDatapath)
