@@ -2,6 +2,7 @@
     "action: 18_POP_VLAN",
     {
         "description": "ethernet/vlan(vid=100)/(vid=100)/arp-->'eth_type=0x0806,actions=pop_vlan,goto_table:1,pop_vlan,output:target_send_port_1'",
+        "xfail": true,
         "prerequisite": [
             {
                 "OFPFlowMod": {
@@ -105,6 +106,7 @@
     },
     {
         "description": "ethernet/vlan(vid=100)/(vid=100)/arp-->'eth_type=0x0806,actions=pop_vlan,pop_vlan,output:target_send_port_1'",
+        "xfail": true,
         "prerequisite": [
             {
                 "OFPFlowMod": {
