@@ -12,8 +12,8 @@
                             "oxm_fields": [
                                 {
                                     "OXMTlv": {
-                                        "field": "eth_type",
-                                        "value": 2048
+                                        "field": "vlan_vid",
+                                        "value": 4196
                                     }
                                 }
                             ]
@@ -82,8 +82,8 @@
                             "oxm_fields": [
                                 {
                                     "OXMTlv": {
-                                        "field": "eth_type",
-                                        "value": 34525
+                                        "field": "vlan_vid",
+                                        "value": 4196
                                     }
                                 }
                             ]
@@ -152,8 +152,8 @@
                             "oxm_fields": [
                                 {
                                     "OXMTlv": {
-                                        "field": "eth_type",
-                                        "value": 2054
+                                        "field": "vlan_vid",
+                                        "value": 4196
                                     }
                                 }
                             ]
