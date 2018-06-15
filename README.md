@@ -1,18 +1,35 @@
 ## pragmaticflows
 
-`pragmaticflows` is being used at [AmLight](https://www.amlight.net) to assess the conformance of OpenFlow version 1.3 on certain switch platforms focused on use cases for production networks pragmatically. `pragmaticflows` is a Ryu application which was forked from the classic [test suites](https://github.com/osrg/ryu/tree/master/ryu/tests/switch/of13).
+`pragmaticflows` is being used at [AmLight](https://www.amlight.net) to assess the conformance of OpenFlow version 1.3 on certain switch platforms focused on use cases for production networks pragmatically. `pragmaticflows` is a Ryu application which was forked from the classic [Ryu test suites](https://github.com/osrg/ryu/tree/master/ryu/tests/switch/of13).
 
 ## Enhancements
 
-- Fully integrated with pytest for first-class test cases selection and reports. You can select or troubleshoot/debug each test case individually thanks to pytest.
+- Fully integrated with pytest for first-class test cases selection and HTML reports. You can select or troubleshoot/debug each test case individually thanks to pytest.
 - All test cases written in json files have been refactored with actual variables so you can use with any OF1.3 switches regardless of their port numbers.
 - Flowmods, PacketIns, PacketOuts and Errors are all logged to simplify the analysis, so just by analyzing the report you'll be able to figure out what happened.
 - Removed miss tables checks, packet-ins are checked in instead, to reduce false positives.
 - Removed all MPLS and PBB packets that were in several use cases since most vendors don't actually support these features.
 
+### Report
+
+Here's a screenshot of the report that you should expect when you run `pragmaticflows` with the `--html-report.html --self-contained-html` options:
+
+![SS](./.ss.png "Report demo")
+
 ## Topology
 
-TODO: explain the topology.
+- You'll need at least two links between the two OpenFlow switches. A third link is only necessary for advanced other more elaborated features such as multicast groups and QoS metering, which is not implemented yet on pragmaticflows yet.
+- Also, you'll need a controller running ryu to control these
+
+```
+------------------
+    (1) -- (1)
+ s1 (2) -- (2) s2
+------------------
+```
+
+- `s1` and `s2` represent an OpenFlow 1.3 switch.
+- The numbers `(1)` and `(2)` in the topology are the `of_port` numbers.
 
 ## Pre-requisites
 
